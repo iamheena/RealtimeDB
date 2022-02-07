@@ -2,8 +2,7 @@ import React,{useState,useEffect} from 'react';
 import db from './Databse'
 import {Link}from 'react-router-dom'
 import './Home.css'
-import { getDatabase, ref, onValue,remove} from "firebase/database";
-import firebase from 'firebase/compat/app';
+import {  ref, onValue,remove} from "firebase/database";
 
 function Home() {
   const[data,setData]=useState({})
@@ -32,10 +31,7 @@ function Home() {
     }
 
   }
-  const updatedata=(id)=>{
-
-
-  }
+ 
   return (
       <div style={{marginTop:"100px"}}>
         <table className="styled-table">
@@ -57,7 +53,7 @@ function Home() {
                <td>{data[id].age}</td>
                <td>
                  <Link to={`/update/${id}`}> 
-                 <button className="btn btn-edit" onClick={()=>updatedata(id)}> Edit</button>
+                 <button className="btn btn-edit"> Edit</button>
                  
                  </Link>
                  <button className="btn btn-delete" onClick={()=>deletedata(id)}> Delete</button>

@@ -8,11 +8,11 @@ function Header() {
   useEffect(() => {
     if(location.pathname==="/"){
       setActivetab("Home")
-    }else if(location.pathname=="/about"){
+    }else if(location.pathname==="/about"){
       setActivetab("About")
-    }else if(location.pathname=="/add"){
+    }else if(location.pathname==="/add"){
       setActivetab("Addcontact")
-    }else if(location.pathname=="/view"){
+    }else if(location.pathname==="/view"){
       setActivetab("View")
     }
 
@@ -39,12 +39,6 @@ function Header() {
       About
         </p>
       </Link>
-
-      {/* <Link to="/view">
-        <p className={`${activetab==="View" ? "active" : ""}`} onClick={()=>setActivetab("View")}>
-    View
-        </p>
-      </Link> */}
 
     </div>
 

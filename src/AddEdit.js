@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import {useNavigate,useParams} from 'react-router-dom'
-import {get, ref, set,onValue } from "firebase/database";
+import {ref, set,onValue } from "firebase/database";
 
 import './AddEdit.css'
 import db from './Databse'
@@ -15,7 +15,6 @@ const initialstate={
 function AddEdit() {
   const[state,setState]=useState({initialstate});
   const [data,setData]=useState({})
-  const[count,setCount]=useState(0)
   const {age,name,email}=state;
   const Navigate=useNavigate()
 
@@ -86,16 +85,7 @@ function AddEdit() {
     }
     setState({name:"",age:"",email:""})
   }
-  // const getdata=()=>{
-  //   const dbref=ref(db, 'users/' );
-  //   get(child(dbref, 'users/')).then((snapshot)=>{
-  //     if(snapshot.exists()){
-
-  //     }
-  //   })
-  // }
-
-
+ 
 
   return (
   <div style={{marginTop:"100px"}}>

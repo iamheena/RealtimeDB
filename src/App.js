@@ -2,7 +2,6 @@
 
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import AddEdit from './AddEdit';
-import AddElement from './AddElement';
 import Header from './Header';
 import Home from './Home';
 import View from './View';
