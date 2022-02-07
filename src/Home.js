@@ -2,7 +2,8 @@ import React,{useState,useEffect} from 'react';
 import db from './Databse'
 import {Link}from 'react-router-dom'
 import './Home.css'
-import { getDatabase, ref, onValue} from "firebase/database";
+import { getDatabase, ref, onValue,remove} from "firebase/database";
+import firebase from 'firebase/compat/app';
 
 function Home() {
   const[data,setData]=useState({})
@@ -20,16 +21,19 @@ function Home() {
   },[])
   // console.log("data",data);
   const deletedata=(id)=>{
+    console.log("iiiiidddddd",id);
     if(window.confirm("Are you sure you want to delete this data")){
-        // db.child(`users/${id}`).remove((err)=>{
-        //   if(err){
-        //     alert(err)
-        //   }else{
-        //     alert("contact delete success")
-        //   }
-        // })
+     remove(ref(db,`users/${id}`),{
+       data,
+       id
+
+     })   
       
     }
+
+  }
+  const updatedata=(id)=>{
+
 
   }
   return (
@@ -53,7 +57,7 @@ function Home() {
                <td>{data[id].age}</td>
                <td>
                  <Link to={`/update/${id}`}> 
-                 <button className="btn btn-edit"> Edit</button>
+                 <button className="btn btn-edit" onClick={()=>updatedata(id)}> Edit</button>
                  
                  </Link>
                  <button className="btn btn-delete" onClick={()=>deletedata(id)}> Delete</button>

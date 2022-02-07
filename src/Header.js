@@ -9,7 +9,7 @@ function Header() {
     if(location.pathname==="/"){
       setActivetab("Home")
     }else if(location.pathname=="/about"){
-      setActivetab("AddEdit")
+      setActivetab("About")
     }else if(location.pathname=="/add"){
       setActivetab("Addcontact")
     }else if(location.pathname=="/view"){
@@ -34,17 +34,17 @@ function Header() {
         </p>
       </Link>
 
-      <Link to="/update/:id">
-        <p className={`${activetab==="AddEdit" ? "active" : ""}`} onClick={()=>setActivetab("AddEdit")}>
-      AddEdit
+      <Link to="/about">
+        <p className={`${activetab==="About" ? "active" : ""}`} onClick={()=>setActivetab("About")}>
+      About
         </p>
       </Link>
 
-      <Link to="/view">
+      {/* <Link to="/view">
         <p className={`${activetab==="View" ? "active" : ""}`} onClick={()=>setActivetab("View")}>
     View
         </p>
-      </Link>
+      </Link> */}
 
     </div>
 

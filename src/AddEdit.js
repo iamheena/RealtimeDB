@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import {useNavigate,useParams} from 'react-router-dom'
-import {get, ref, set } from "firebase/database";
+import {get, ref, set,onValue } from "firebase/database";
+
 import './AddEdit.css'
 import db from './Databse'
 
@@ -18,31 +19,68 @@ function AddEdit() {
   const {age,name,email}=state;
   const Navigate=useNavigate()
 
+  const {id}=useParams()
+
   const handleInput=(e)=>{
     const {name,value}=e.target
     setState({...state,[name]:value});
 
   }
+  useEffect(() => {
+    const starCountRef = ref(db, 'users/' );
+    onValue(starCountRef, (snapshot) => {
+    const data = snapshot.val();    
+              setData(data)
+              return()=>{
+                setData({})
+              }
+      });    
+  },[id])
+  useEffect(() => {
+    if(id){
+      setState({...data[id]})
+    }else{
+      setState({initialstate})
+    }
+    return()=>{
+      setState({...initialstate})
+    }
+
+
+  },[id,data])
 
   const handleSubmit=(e)=>{  
     e.preventDefault();   
     if(!name|| !email || !age){     
      alert("Please provide in each");
     } 
-    else{      
-     let userId=Math.random().toString(36).replace(/[^a-z]+/g, '').substr();
+    else{  
+      if(!id) { 
+            let userId=Math.random().toString(36).replace(/[^a-z]+/g, '').substr();
+            //  console.log('userId',userId);   
+              set(ref(db, `users/`+ userId ), {
+                name: name,
+                email: email,
+                age : age
+              }).then(()=>{
+                alert("data Add successs")
+              }).catch((e)=>{
+                alert("error",e)
+              })
+            }  
+            else{              
+              set(ref(db, `users/${id}` ), {
+                name: name,
+                email: email,
+                age : age
+              }).then(()=>{
+                alert("Data Update successs")
+              }).catch((e)=>{
+                alert("error",e)
+              })
 
-     console.log('userId',userId);
-   
-      set(ref(db, `users/`+ userId ), {
-        name: name,
-        email: email,
-        age : age
-      }).then(()=>{
-        alert("data store successs")
-      }).catch((e)=>{
-        alert("error",e)
-      })
+            }
+
       setTimeout(()=>Navigate("/"),500)
     
     }
@@ -75,7 +113,8 @@ alignContent:"center"}} onSubmit={handleSubmit}>
 
   <label htmlFor="email">Email</label>
   <input type="email" placeholder="your name" value={email ||""} name="email" onChange={handleInput}/>
-<input type="submit" value="save" />
+
+  <input type="submit" value={id? "update":"save"} />
 
 </form>
 
